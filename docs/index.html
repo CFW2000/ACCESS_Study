@@ -642,9 +642,11 @@
       mapData.addColumn('number', 'Long');
       mapData.addColumn('string', 'Country');
       mapData.addColumn('number', 'Participant');
+      mapData.addColumn({type: 'string', role: 'tooltip', p: {html: true}});
 
       countriesData.forEach((c) => {
-        mapData.addRow([c.lat, c.lng, c.name, 1]);
+        const tooltipHtml = `<div style="padding:8px 12px; font-family:'Inter',sans-serif; font-size:14px; color:#2d5a3d; font-weight:600; white-space:nowrap;">${c.name}</div>`;
+        mapData.addRow([c.lat, c.lng, c.name, 1, tooltipHtml]);
       });
 
       const options = {
@@ -654,7 +656,7 @@
         datalessRegionColor: '#e0e0e0',
         defaultColor: '#f5f5f5',
         legend: 'none',
-        tooltip: { trigger: 'focus' },
+        tooltip: { isHtml: true, trigger: 'focus' },
         markerOpacity: 0.9,
         sizeAxis: { minSize: 8, maxSize: 8 }
       };
