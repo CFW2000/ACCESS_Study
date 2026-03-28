@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACCESS Study – Anesthesia praCtice for Cesarean dElivery Snapshot Study</title>
+  <meta name="description" content="ACCESS is a multicentre snapshot study investigating anesthesia practice for cesarean delivery across European countries and Israel." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Tokens ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:  #2d5a3d;
+      --green-mid:   #3e7a56;
+      --green-light: #6aab84;
+      --teal:        #4a9e8e;
+      --sky:         #c8e8f4;
+      --sky-light:   #e4f3fa;
+      --card-blue:   #a8cfe0;
+      --card-pale:   #c8dfe9;
+      --cream:       #f5f0eb;
+      --text-dark:   #1a2e22;
+      --text-mid:    #344d3e;
+      --text-light:  #5a7a68;
+      --white:       #ffffff;
+      --shadow:      0 4px 20px rgba(0,0,0,.10);
+      --radius:      14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--sky-light);
+      color: var(--text-dark);
+      line-height: 1.65;
+    }
+
+    /* ─── Nav ────────────────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--green-dark);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 10px 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.25);
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 7px 18px;
+      border-radius: 6px;
+      transition: background .2s, transform .15s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: var(--green-light);
+      transform: translateY(-1px);
+    }
+
+    /* ─── Hero ───────────────────────────────────────────────────────────── */
+    #home {
+      background: linear-gradient(150deg, var(--sky) 0%, var(--sky-light) 60%, #d8eef7 100%);
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--green-dark);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--green-dark);
+      line-height: 1.2;
+      max-width: 780px;
+      margin: 0 auto 12px;
+    }
+
+    .hero-title span {
+      color: #c0392b;
+      font-weight: 700;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-light);
+      font-weight: 500;
+      margin-bottom: 32px;
+      letter-spacing: 0.02em;
+    }
+
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      border: 2px solid var(--green-light);
+      border-radius: 50px;
+      padding: 10px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--green-dark);
+      box-shadow: var(--shadow);
+      margin-bottom: 40px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green-light);
+      box-shadow: 0 0 0 3px rgba(106,171,132,.3);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 3px rgba(106,171,132,.3); }
+      50%      { box-shadow: 0 0 0 6px rgba(106,171,132,.1); }
+    }
+
+    .hero-body {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      box-shadow: var(--shadow);
+      line-height: 1.8;
+    }
+
+    .hero-body strong { color: var(--green-dark); }
+
+    .hero-footer {
+      margin-top: 24px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      font-style: italic;
+    }
+
+    /* ─── Sections ───────────────────────────────────────────────────────── */
+    section {
+      padding: 80px 24px;
+    }
+
+    section:nth-child(even) {
+      background: var(--sky);
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--green-dark);
+      margin-bottom: 48px;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--green-light);
+      border-radius: 2px;
+      margin: 14px auto 0;
+    }
+
+    /* ─── News Cards ─────────────────────────────────────────────────────── */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .news-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--green-light);
+      transition: transform .25s, box-shadow .25s;
+      text-align: center;
+    }
+
+    .news-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0,0,0,.14);
+    }
+
+    .news-card .news-icon {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+    }
+
+    .news-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--green-dark);
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+
+    .news-card p {
+      font-size: 0.92rem;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    .news-card .stat-big {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--teal);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    /* ─── Participation Map ──────────────────────────────────────────────── */
+    #participation-map .map-container {
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 3px solid var(--card-blue);
+    }
+
+    #participation-map .map-container iframe {
+      width: 100%;
+      height: 480px;
+      border: none;
+      display: block;
+    }
+
+    .map-note {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 0.88rem;
+      color: var(--text-light);
+    }
+
+    /* Country pill list */
+    .countries-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      max-width: 900px;
+      margin: 28px auto 0;
+    }
+
+    .country-pill {
+      background: var(--white);
+      border: 1.5px solid var(--green-light);
+      border-radius: 50px;
+      padding: 5px 16px;
+      font-size: 0.85rem;
+      color: var(--green-dark);
+      font-weight: 500;
+      transition: background .2s, color .2s;
+    }
+
+    .country-pill:hover {
+      background: var(--green-dark);
+      color: var(--white);
+    }
+
+    /* ─── Steering Committee ─────────────────────────────────────────────── */
+    .committee-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .committee-card {
+      background: var(--card-pale);
+      border-radius: var(--radius);
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+      transition: transform .25s, box-shadow .25s, background .25s;
+    }
+
+    .committee-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 28px rgba(0,0,0,.13);
+      background: var(--card-blue);
+    }
+
+    .committee-card .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: var(--white);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+      font-weight: 700;
+    }
+
+    .committee-card .role {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin-bottom: 4px;
+    }
+
+    .committee-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--text-dark);
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .committee-card .country-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      color: var(--text-light);
+      background: rgba(255,255,255,.6);
+      border-radius: 50px;
+      padding: 2px 12px;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--green-dark);
+      color: rgba(255,255,255,.75);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.88rem;
+    }
+
+    footer a {
+      color: var(--green-light);
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    /* ─── Responsive ─────────────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .hero-body { padding: 20px; }
+      nav a { font-size: 0.78rem; padding: 6px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────────────────────── -->
+  <nav id="main-nav">
+    <a href="#home"               id="nav-home">Home</a>
+    <a href="#news"               id="nav-news">News</a>
+    <a href="#participation-map"  id="nav-map">Participation Map</a>
+    <a href="#steering-committee" id="nav-committee">Steering Committee</a>
+  </nav>
+
+  <!-- ── Home ──────────────────────────────────────────────────────────── -->
+  <section id="home">
+    <span class="hero-badge">International Snapshot Study</span>
+    <h1 class="hero-title">
+      Anesthesia pra<span>C</span>tice for<br>
+      Cesarean d<span>E</span>livery Snapshot Study<br>
+      <span>ACCESS</span>
+    </h1>
+    <p class="hero-subtitle">Investigating cesarean delivery anesthesia practice across Europe &amp; Israel</p>
+
+    <div class="status-chip">
+      <span class="status-dot"></span>
+      Data Collection Completed
+    </div>
+
+    <div class="hero-body">
+      <p>
+        Thank you for your interest in <strong>ACCESS</strong>, a study to investigate cesarean delivery
+        anesthesia practice. We aim to establish current practices of anesthesia for cesarean delivery
+        by surveying labor and delivery centers in European countries.
+      </p>
+    </div>
+    <p class="hero-footer">— The ACCESS Study Team</p>
+  </section>
+
+  <!-- ── News ──────────────────────────────────────────────────────────── -->
+  <section id="news">
+    <p class="section-label">Latest Updates</p>
+    <h2 class="section-title">ACCESS Study News</h2>
+
+    <div class="news-grid">
+
+      <div class="news-card">
+        <div class="news-icon">🌍</div>
+        <div class="stat-big">32</div>
+        <h3>Countries with National Coordinators</h3>
+        <p>The ACCESS network spans 32 countries, each represented by a dedicated National Coordinator.</p>
+      </div>
+
+      <div class="news-card">
+        <div class="news-icon">📅</div>
+        <h3>Data Collection Period</h3>
+        <p>
+          Data collection <strong>started 1st September 2023</strong> and was
+          <strong>completed April 30th 2025</strong>.
+        </p>
+      </div>
+
+      <div class="news-card">
+        <div class="news-icon">🔬</div>
+        <h3>Ethics — Primary Investigator's Institution</h3>
+        <p>
+          The Primary Investigator's institution (Israel) was granted an
+          <strong>exemption from ethical review board approval</strong>.
+        </p>
+      </div>
+
+      <div class="news-card">
+        <div class="news-icon">✅</div>
+        <h3>Ethics — Participating Centers</h3>
+        <p>
+          Ethical approvals are received by each participating center individually.
+          Some countries received a <strong>national waiver</strong> for ethical approval.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Participation Map ─────────────────────────────────────────────── -->
+  <section id="participation-map">
+    <p class="section-label">Global Reach</p>
+    <h2 class="section-title">Participating Countries</h2>
+
+    <div class="map-container">
+      <!-- Embedded Google Map centred on Europe / Israel -->
+      <iframe
+        id="participation-iframe"
+        title="ACCESS Study Participation Map"
+        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15000000!2d18!3d50!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sil!4v1711638000000!5m2!1sen!2sil"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <p class="map-note">
+      The map above shows the European region and Israel where ACCESS Study data was collected.<br>
+      For the interactive participation map visit
+      <a href="https://ariels2000.wixsite.com/accessmedicine/participation-map" target="_blank" rel="noopener">
+        the original ACCESS website
+      </a>.
+    </p>
+
+    <!-- Country pills – 32 countries represented in the study -->
+    <div class="countries-grid" id="countries-grid">
+      <!-- Populated by JS below -->
+    </div>
+  </section>
+
+  <!-- ── Steering Committee ────────────────────────────────────────────── -->
+  <section id="steering-committee">
+    <p class="section-label">Leadership</p>
+    <h2 class="section-title">Steering Committee</h2>
+
+    <div class="committee-grid" id="committee-grid">
+      <!-- Populated by JS below -->
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────────────────── -->
+  <footer>
+    <p>
+      &copy; 2025 ACCESS Study. Original website:
+      <a href="https://ariels2000.wixsite.com/accessmedicine" target="_blank" rel="noopener">
+        ariels2000.wixsite.com/accessmedicine
+      </a>
+    </p>
+  </footer>
+
+  <!-- ── Script ─────────────────────────────────────────────────────────── -->
+  <script>
+    /* ── Steering Committee Data ─────────────────────────────────────── */
+    const committee = [
+      { name: "Carolyn Weiniger",          title: "Professor", country: "Israel" },
+      { name: "Adam Lustig",               title: "Dr.",       country: "Israel" },
+      { name: "Estelle Morau",             title: "Dr.",       country: "France" },
+      { name: "Kim Eklund",                title: "Dr.",       country: "Denmark" },
+      { name: "Emilia Guasch",             title: "Professor", country: "Spain" },
+      { name: "Nicolas Brogly",            title: "Dr.",       country: "Spain" },
+      { name: "Carolina Soledad Romero",   title: "Professor", country: "Spain" },
+      { name: "Pierre-Yves Dewandre",      title: "Professor", country: "Belgium" },
+      { name: "Alexander Ioscovich",       title: "Professor", country: "Israel" },
+      { name: "Oscar van den Bosch",       title: "Dr.",       country: "Netherlands" },
+      { name: "Arash Afshari",             title: "Professor", country: "Denmark" },
+      { name: "Peter Kranke",              title: "Professor", country: "Germany" },
+      { name: "Thierry Girard",            title: "Professor", country: "Switzerland" },
+      { name: "Nuala Lucas",               title: "Professor", country: "England" },
+      { name: "Sharon Orbach-Zinger",      title: "Professor", country: "Israel" },
+    ];
+
+    function initials(name) {
+      return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+    }
+
+    const grid = document.getElementById('committee-grid');
+    committee.forEach(m => {
+      grid.insertAdjacentHTML('beforeend', `
+        <div class="committee-card">
+          <div class="avatar">${initials(m.name)}</div>
+          <p class="role">${m.title}</p>
+          <h3>${m.name}</h3>
+          <span class="country-tag">🌐 ${m.country}</span>
+        </div>
+      `);
+    });
+
+    /* ── Country Pills ───────────────────────────────────────────────── */
+    const countries = [
+      "Albania","Austria","Belgium","Croatia","Cyprus","Czech Republic",
+      "Denmark","England","Estonia","Finland","France","Germany","Greece",
+      "Hungary","Ireland","Israel","Italy","Latvia","Lithuania","Luxembourg",
+      "Malta","Netherlands","Norway","Poland","Portugal","Romania","Serbia",
+      "Slovenia","Spain","Sweden","Switzerland","Turkey"
+    ];
+
+    const pillsContainer = document.getElementById('countries-grid');
+    countries.forEach(c => {
+      pillsContainer.insertAdjacentHTML('beforeend',
+        `<span class="country-pill">${c}</span>`
+      );
+    });
+
+    /* ── Active nav on scroll ────────────────────────────────────────── */
+    const sections = document.querySelectorAll('section[id], #home');
+    const navLinks = document.querySelectorAll('nav a');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const active = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+  </script>
+</body>
+</html>
