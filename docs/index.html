@@ -90,6 +90,15 @@
       margin-bottom: 24px;
     }
 
+    .hero-img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto 32px;
+      max-height: 250px;
+      object-fit: contain;
+    }
+
     .hero-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2rem, 5vw, 3.2rem);
@@ -401,6 +410,7 @@
 
   <!-- ── Home ──────────────────────────────────────────────────────────── -->
   <section id="home">
+    <img src="images/Picture1.png" alt="ACCESS Study Picture" class="hero-img" />
     <span class="hero-badge">International Snapshot Study</span>
     <h1 class="hero-title">
       Anesthesia pra<span>C</span>tice for<br>
@@ -433,9 +443,15 @@
 
       <div class="news-card">
         <div class="news-icon">🌍</div>
-        <div class="stat-big">32</div>
+        <div class="stat-big">31</div>
         <h3>Countries with National Coordinators</h3>
-        <p>The ACCESS network spans 32 countries, each represented by a dedicated National Coordinator.</p>
+        <p>The ACCESS Study spans 31 countries, each represented by dedicated National Coordinators;</p>
+      </div>
+
+      <div class="news-card">
+        <div class="news-icon">🎓</div>
+        <h3>Presentations in 2026</h3>
+        <p>Several ACCESS study abstracts will be presented in 2026: Best Paper Competition at the Society of Obstetric Anesthesia and Perinatology and at Euroanaesthesia.</p>
       </div>
 
       <div class="news-card">
@@ -486,14 +502,14 @@
     </div>
 
     <p class="map-note">
-      The map above shows the European region and Israel where ACCESS Study data was collected.<br>
+      The map above shows the European region countries where ACCESS Study data were collected.<br>
       For the interactive participation map visit
       <a href="https://ariels2000.wixsite.com/accessmedicine/participation-map" target="_blank" rel="noopener">
         the original ACCESS website
       </a>.
     </p>
 
-    <!-- Country pills – 32 countries represented in the study -->
+    <!-- Country pills – 31 countries represented in the study -->
     <div class="countries-grid" id="countries-grid">
       <!-- Populated by JS below -->
     </div>
@@ -558,11 +574,13 @@
 
     /* ── Country Pills ───────────────────────────────────────────────── */
     const countries = [
-      "Albania","Austria","Belgium","Croatia","Cyprus","Czech Republic",
-      "Denmark","England","Estonia","Finland","France","Germany","Greece",
-      "Hungary","Ireland","Israel","Italy","Latvia","Lithuania","Luxembourg",
-      "Malta","Netherlands","Norway","Poland","Portugal","Romania","Serbia",
-      "Slovenia","Spain","Sweden","Switzerland","Turkey"
+      "Albania", "Austria", "Belgium", "Bulgaria", "Czech Republic",
+      "Denmark", "Estonia", "Finland", "France", "Germany",
+      "Greece", "Ireland", "Israel", "Kosovo", "Latvia",
+      "Malta", "N Ireland", "Netherlands", "Norway", "Poland",
+      "Portugal", "Republic of North Macedonia", "Romania", "Serbia", "Slovakia / Slovak Republic",
+      "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine",
+      "Wales"
     ];
 
     const pillsContainer = document.getElementById('countries-grid');
