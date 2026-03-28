@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <style>
     /* ─── Reset & Tokens ─────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -302,12 +303,46 @@
       font-size: 0.85rem;
       color: var(--green-dark);
       font-weight: 500;
+      cursor: pointer;
       transition: background .2s, color .2s;
     }
 
     .country-pill:hover {
       background: var(--green-dark);
       color: var(--white);
+    }
+
+    .highlighted-pill {
+      background: var(--green-dark) !important;
+      color: var(--white) !important;
+      box-shadow: 0 4px 12px rgba(45,90,61,.4) !important;
+      transform: translateY(-2px);
+      border-color: var(--green-dark) !important;
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 24px;
+      padding: 0 16px;
+    }
+    
+    .search-input {
+      width: 100%;
+      max-width: 500px;
+      padding: 14px 24px;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      border: 2px solid var(--teal);
+      outline: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,.08);
+      font-family: inherit;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    
+    .search-input:focus {
+      border-color: var(--green-dark);
+      box-shadow: 0 4px 16px rgba(0,0,0,.15);
     }
 
     /* ─── Steering Committee ─────────────────────────────────────────────── */
@@ -507,16 +542,12 @@
     <p class="section-label">Global Reach</p>
     <h2 class="section-title">Participating Countries</h2>
 
-    <div class="map-container">
-      <!-- Embedded Google Map centred on Europe / Israel -->
-      <iframe
-        id="participation-iframe"
-        title="ACCESS Study Participation Map"
-        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15000000!2d18!3d50!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sil!4v1711638000000!5m2!1sen!2sil"
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
+    <div class="search-container">
+      <input type="search" id="map-search" class="search-input" placeholder="Search for a participating country...">
+    </div>
+
+    <div class="map-container" style="border-radius: var(--radius); overflow: hidden; background: var(--sky);">
+      <div id="regions_div" style="width: 100%; height: 500px;"></div>
     </div>
 
     <p class="map-note">
@@ -553,23 +584,125 @@
 
   <!-- ── Script ─────────────────────────────────────────────────────────── -->
   <script>
-    /* ── Country Pills ───────────────────────────────────────────────── */
-    const countries = [
-      "Albania", "Austria", "Belgium", "Bulgaria", "Czech Republic",
-      "Denmark", "Estonia", "Finland", "France", "Germany",
-      "Greece", "Ireland", "Israel", "Kosovo", "Latvia",
-      "Malta", "N Ireland", "Netherlands", "Norway", "Poland",
-      "Portugal", "Republic of North Macedonia", "Romania", "Serbia", "Slovakia / Slovak Republic",
-      "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine",
-      "Wales"
+    /* ── Country Data (Lat/Long for Pins) ────────────────────────────── */
+    const countriesData = [
+      { name: "Albania", lat: 41.1533, lng: 20.1683 },
+      { name: "Austria", lat: 47.5162, lng: 14.5501 },
+      { name: "Belgium", lat: 50.5039, lng: 4.4699 },
+      { name: "Bulgaria", lat: 42.7339, lng: 25.4858 },
+      { name: "Czech Republic", lat: 49.8175, lng: 15.4730 },
+      { name: "Denmark", lat: 56.2639, lng: 9.5018 },
+      { name: "Estonia", lat: 58.5953, lng: 25.0136 },
+      { name: "Finland", lat: 61.9241, lng: 25.7482 },
+      { name: "France", lat: 46.2276, lng: 2.2137 },
+      { name: "Germany", lat: 51.1657, lng: 10.4515 },
+      { name: "Greece", lat: 39.0742, lng: 21.8243 },
+      { name: "Ireland", lat: 53.1424, lng: -7.6921 },
+      { name: "Israel", lat: 31.0461, lng: 34.8516 },
+      { name: "Kosovo", lat: 42.6026, lng: 20.9030 },
+      { name: "Latvia", lat: 56.8796, lng: 24.6032 },
+      { name: "Malta", lat: 35.9375, lng: 14.3754 },
+      { name: "Northern Ireland", lat: 54.7877, lng: -6.4923 },
+      { name: "Netherlands", lat: 52.1326, lng: 5.2913 },
+      { name: "Norway", lat: 60.4720, lng: 8.4689 },
+      { name: "Poland", lat: 51.9194, lng: 19.1451 },
+      { name: "Portugal", lat: 39.3999, lng: -8.2245 },
+      { name: "Republic of North Macedonia", lat: 41.6086, lng: 21.7453 },
+      { name: "Romania", lat: 45.9432, lng: 24.9668 },
+      { name: "Serbia", lat: 44.0165, lng: 21.0059 },
+      { name: "Slovakia", lat: 48.6690, lng: 19.6990 },
+      { name: "Spain", lat: 40.4637, lng: -3.7492 },
+      { name: "Sweden", lat: 60.1282, lng: 18.6435 },
+      { name: "Switzerland", lat: 46.8182, lng: 8.2275 },
+      { name: "Turkey", lat: 38.9637, lng: 35.2433 },
+      { name: "Ukraine", lat: 48.3794, lng: 31.1656 },
+      { name: "Wales", lat: 52.1307, lng: -3.7837 }
     ];
 
     const pillsContainer = document.getElementById('countries-grid');
-    countries.forEach(c => {
+    countriesData.forEach(c => {
+      let label = c.name;
+      if (c.name === "Northern Ireland") label = "N Ireland";
+      if (c.name === "Slovakia") label = "Slovakia / Slovak Republic";
+      
       pillsContainer.insertAdjacentHTML('beforeend',
-        `<span class="country-pill">${c}</span>`
+        `<span class="country-pill" id="pill-${c.name.replace(/\s+/g, '')}" data-country="${c.name}">${label}</span>`
       );
     });
+
+    /* ── Interactive Map (Google GeoChart) ───────────────────────────── */
+    let mapChart, mapData;
+
+    google.charts.load('current', {
+      'packages':['geochart']
+    });
+    google.charts.setOnLoadCallback(drawRegionsMap);
+
+    function drawRegionsMap() {
+      // Setup the data array with Lat, Long, Country Info
+      mapData = new google.visualization.DataTable();
+      mapData.addColumn('number', 'Lat');
+      mapData.addColumn('number', 'Long');
+      mapData.addColumn('string', 'Country');
+      mapData.addColumn('number', 'Participant');
+
+      countriesData.forEach((c) => {
+        mapData.addRow([c.lat, c.lng, c.name, 1]);
+      });
+
+      const options = {
+        displayMode: 'markers',
+        colorAxis: {colors: ['#3e7a56', '#2d5a3d']},
+        backgroundColor: '#c8e8f4',
+        datalessRegionColor: '#e0e0e0',
+        defaultColor: '#f5f5f5',
+        legend: 'none',
+        tooltip: { trigger: 'focus' },
+        markerOpacity: 0.9,
+        sizeAxis: { minSize: 8, maxSize: 8 }
+      };
+
+      mapChart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+      mapChart.draw(mapData, options);
+
+      // Search bar logic
+      const searchBox = document.getElementById('map-search');
+      searchBox.addEventListener('keyup', (e) => {
+        const term = e.target.value.toLowerCase();
+        if (term.length > 1) {
+          matchIndex = countriesData.findIndex(c => c.name.toLowerCase().includes(term));
+        }
+
+        if (matchIndex !== -1) {
+          mapChart.setSelection([{row: matchIndex, column: null}]);
+          highlightPill(countriesData[matchIndex].name);
+        } else {
+          mapChart.setSelection([]);
+          highlightPill(null);
+        }
+      });
+
+      // Pill click logic
+      const pills = document.querySelectorAll('.country-pill');
+      pills.forEach((pill) => {
+        pill.addEventListener('click', (e) => {
+          const cName = e.target.getAttribute('data-country');
+          const idx = countriesData.findIndex(c => c.name === cName);
+          if (idx !== -1) {
+            mapChart.setSelection([{row: idx, column: null}]);
+            highlightPill(cName);
+            searchBox.value = ''; // clear search box optionally
+          }
+        });
+      });
+    }
+
+    function highlightPill(countryName) {
+      document.querySelectorAll('.country-pill').forEach(p => {
+        if (p.getAttribute('data-country') === countryName) p.classList.add('highlighted-pill');
+        else p.classList.remove('highlighted-pill');
+      });
+    }
 
     /* ── Active nav on scroll ────────────────────────────────────────── */
     const sections = document.querySelectorAll('section[id], #home');
