@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACCESS Study – Anesthesia praCtice for Cesarean dElivery Snapshot Study</title>
+  <meta name="description" content="ACCESS is a multicentre snapshot study investigating anesthesia practice for cesarean delivery across European countries and Israel." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <style>
+    /* ─── Reset & Tokens ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:  #2d5a3d;
+      --green-mid:   #3e7a56;
+      --green-light: #6aab84;
+      --teal:        #4a9e8e;
+      --sky:         #c8e8f4;
+      --sky-light:   #e4f3fa;
+      --card-blue:   #a8cfe0;
+      --card-pale:   #c8dfe9;
+      --cream:       #f5f0eb;
+      --text-dark:   #1a2e22;
+      --text-mid:    #344d3e;
+      --text-light:  #5a7a68;
+      --white:       #ffffff;
+      --shadow:      0 4px 20px rgba(0,0,0,.10);
+      --radius:      14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--sky-light);
+      color: var(--text-dark);
+      line-height: 1.65;
+    }
+
+    /* ─── Nav ────────────────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--green-dark);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 10px 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.25);
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 7px 18px;
+      border-radius: 6px;
+      transition: background .2s, transform .15s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: var(--green-light);
+      transform: translateY(-1px);
+    }
+
+    /* ─── Hero ───────────────────────────────────────────────────────────── */
+    #home {
+      background: linear-gradient(150deg, var(--sky) 0%, var(--sky-light) 60%, #d8eef7 100%);
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--green-dark);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+    }
+
+    .hero-img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto 32px;
+      max-height: 250px;
+      object-fit: contain;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--green-dark);
+      line-height: 1.2;
+      max-width: 780px;
+      margin: 0 auto 12px;
+    }
+
+    .hero-title span {
+      color: #c0392b;
+      font-weight: 700;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-light);
+      font-weight: 500;
+      margin-bottom: 32px;
+      letter-spacing: 0.02em;
+    }
+
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      border: 2px solid var(--green-light);
+      border-radius: 50px;
+      padding: 10px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--green-dark);
+      box-shadow: var(--shadow);
+      margin-bottom: 40px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green-light);
+      box-shadow: 0 0 0 3px rgba(106,171,132,.3);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 3px rgba(106,171,132,.3); }
+      50%      { box-shadow: 0 0 0 6px rgba(106,171,132,.1); }
+    }
+
+    .hero-body {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      box-shadow: var(--shadow);
+      line-height: 1.8;
+    }
+
+    .hero-body strong { color: var(--green-dark); }
+
+    .hero-footer {
+      margin-top: 24px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      font-style: italic;
+    }
+
+    /* ─── Sections ───────────────────────────────────────────────────────── */
+    section {
+      padding: 80px 24px;
+    }
+
+    section:nth-child(even) {
+      background: var(--sky);
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--green-dark);
+      margin-bottom: 48px;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--green-light);
+      border-radius: 2px;
+      margin: 14px auto 0;
+    }
+
+    /* ─── News Cards ─────────────────────────────────────────────────────── */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .news-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--green-light);
+      transition: transform .25s, box-shadow .25s;
+      text-align: center;
+    }
+
+    .news-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0,0,0,.14);
+    }
+
+    .news-card .news-icon {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+    }
+
+    .news-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--green-dark);
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+
+    .news-card p {
+      font-size: 0.92rem;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    .news-card .stat-big {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--teal);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    /* ─── Participation Map ──────────────────────────────────────────────── */
+    #participation-map .map-container {
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 3px solid var(--card-blue);
+    }
+
+    #participation-map .map-container iframe {
+      width: 100%;
+      height: 480px;
+      border: none;
+      display: block;
+    }
+
+    .map-note {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 0.88rem;
+      color: var(--text-light);
+    }
+
+    /* Country pill list */
+    .countries-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      max-width: 900px;
+      margin: 28px auto 0;
+    }
+
+    .country-pill {
+      background: var(--white);
+      border: 1.5px solid var(--green-light);
+      border-radius: 50px;
+      padding: 5px 16px;
+      font-size: 0.85rem;
+      color: var(--green-dark);
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+
+    .country-pill:hover {
+      background: var(--green-dark);
+      color: var(--white);
+    }
+
+    .highlighted-pill {
+      background: var(--green-dark) !important;
+      color: var(--white) !important;
+      box-shadow: 0 4px 12px rgba(45,90,61,.4) !important;
+      transform: translateY(-2px);
+      border-color: var(--green-dark) !important;
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 24px;
+      padding: 0 16px;
+    }
+    
+    .search-input {
+      width: 100%;
+      max-width: 500px;
+      padding: 14px 24px;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      border: 2px solid var(--teal);
+      outline: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,.08);
+      font-family: inherit;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    
+    .search-input:focus {
+      border-color: var(--green-dark);
+      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+    }
+
+    /* ─── Steering Committee ─────────────────────────────────────────────── */
+    .committee-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .committee-card {
+      background: var(--card-pale);
+      border-radius: var(--radius);
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+      transition: transform .25s, box-shadow .25s, background .25s;
+    }
+
+    .committee-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 28px rgba(0,0,0,.13);
+      background: var(--card-blue);
+    }
+
+    .committee-card .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: var(--white);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+      font-weight: 700;
+    }
+
+    .committee-card .role {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin-bottom: 4px;
+    }
+
+    .committee-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--text-dark);
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .committee-card .country-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      color: var(--text-light);
+      background: rgba(255,255,255,.6);
+      border-radius: 50px;
+      padding: 2px 12px;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--green-dark);
+      color: rgba(255,255,255,.75);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.88rem;
+    }
+
+    footer a {
+      color: var(--green-light);
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    .pdf-btn {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 18px 40px;
+      border-radius: 50px;
+      box-shadow: 0 6px 16px rgba(0,0,0,.15);
+      transition: background .2s, transform .2s;
+    }
+
+    .pdf-btn:hover {
+      background: var(--green-dark);
+      transform: translateY(-2px);
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .hero-body { padding: 20px; }
+      nav a { font-size: 0.78rem; padding: 6px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────────────────────── -->
+  <nav id="main-nav">
+    <a href="#home"               id="nav-home">Home</a>
+    <a href="#news"               id="nav-news">News</a>
+    <a href="#participation-map"  id="nav-map">Participation Map</a>
+    <a href="#study-group" id="nav-group">Access Study Group</a>
+  </nav>
+
+  <!-- ── Home ──────────────────────────────────────────────────────────── -->
+  <section id="home">
+    <img src="images/Picture1.png" alt="ACCESS Study Picture" class="hero-img" />
+    <span class="hero-badge">Prospective Cross-Sectional Multicenter Multinational Snapshot Study</span>
+    <h1 class="hero-title">
+      Anesthesia pra<span>C</span>tice for<br>
+      Cesarean d<span>E</span>livery Snapshot Study<br>
+      <span>ACCESS</span>
+    </h1>
+    <p class="hero-subtitle">Reporting anesthesia practice for cesarean delivery in participating European centers</p>
+
+    <div class="status-chip">
+      <span class="status-dot"></span>
+      Data Collection Completed
+    </div>
+
+    <div class="hero-body">
+      <p>
+        Thank you for your interest in <strong>ACCESS</strong>, a study to investigate cesarean delivery
+        anesthesia practice. We aim to establish current practices of anesthesia for cesarean delivery
+        by surveying labor and delivery centers in European countries.
+      </p>
+    </div>
+    <p class="hero-footer">— The ACCESS Study Team</p>
+  </section>
+
+  <!-- ── News ──────────────────────────────────────────────────────────── -->
+  <section id="news">
+    <p class="section-label">Latest Updates</p>
+    <h2 class="section-title">ACCESS Study News</h2>
+
+    <div class="news-grid">
+
+      <div class="news-card">
+        <div class="news-icon">🌍</div>
+        <div class="stat-big">31</div>
+        <h3>Countries with National Coordinators</h3>
+        <p>The ACCESS Study spans 31 countries, each represented by dedicated National Coordinators;</p>
+      </div>
+
+      <div class="news-card">
+        <div class="news-icon">🎓</div>
+        <h3>Presentations in 2026</h3>
+        <p>Several ACCESS study abstracts will be presented in 2026: Best Paper Competition at The Society for Obstetric Anesthesia and Perinatology (SOAP) and at Euroanaesthesia.</p>
+      </div>
+
+      <div class="news-card">
+        <div class="news-icon" style="display: flex; align-items: center; justify-content: center;">
+          <svg style="width: 48px; height: 48px; color: var(--green-dark);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+        </div>
+        <h3>Data Collection Period</h3>
+        <p>
+          Data collection <strong>started 1st September 2023</strong> and was
+          <strong>completed April 30th 2025</strong>.
+        </p>
+      </div>
+
+
+
+      <div class="news-card">
+        <div class="news-icon">✅</div>
+        <h3>Ethics — Participating Centers</h3>
+        <p>
+          Ethical approvals are received by each participating center individually.
+          Some countries received a <strong>national waiver</strong> for ethical approval.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Participation Map ─────────────────────────────────────────────── -->
+  <section id="participation-map">
+    <p class="section-label">Global Reach</p>
+    <h2 class="section-title">Participating Countries</h2>
+
+    <div class="search-container">
+      <input type="search" id="map-search" class="search-input" placeholder="Search for a participating country...">
+    </div>
+
+    <div class="map-container" style="border-radius: var(--radius); overflow: hidden; background: var(--sky);">
+      <div id="regions_div" style="width: 100%; height: 500px;"></div>
+    </div>
+
+    <p class="map-note">
+      The map above shows the European region countries where ACCESS Study data were collected.
+    </p>
+
+    <!-- Country pills – 31 countries represented in the study -->
+    <div class="countries-grid" id="countries-grid">
+      <!-- Populated by JS below -->
+    </div>
+  </section>
+
+  <!-- ── Access Study Group ────────────────────────────────────────────── -->
+  <section id="study-group">
+    <p class="section-label">Participants</p>
+    <h2 class="section-title">Access Study Group</h2>
+
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="Collaborators for indexing - ACCESS.CFW 4th April 2026.pdf" target="_blank" class="pdf-btn">
+        📄 View the ACCESS Study Group Document
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────────────────── -->
+  <footer>
+    <p>
+      &copy; 2025 ACCESS Study.
+    </p>
+  </footer>
+
+  <!-- ── Script ─────────────────────────────────────────────────────────── -->
+  <script>
+    /* ── Country Data (Lat/Long for Pins) ────────────────────────────── */
+    const countriesData = [
+      { name: "Albania", lat: 41.1533, lng: 20.1683 },
+      { name: "Austria", lat: 47.5162, lng: 14.5501 },
+      { name: "Belgium", lat: 50.5039, lng: 4.4699 },
+      { name: "Bulgaria", lat: 42.7339, lng: 25.4858 },
+      { name: "Czech Republic", lat: 49.8175, lng: 15.4730 },
+      { name: "Denmark", lat: 56.2639, lng: 9.5018 },
+      { name: "Estonia", lat: 58.5953, lng: 25.0136 },
+      { name: "Finland", lat: 61.9241, lng: 25.7482 },
+      { name: "France", lat: 46.2276, lng: 2.2137 },
+      { name: "Germany", lat: 51.1657, lng: 10.4515 },
+      { name: "Greece", lat: 39.0742, lng: 21.8243 },
+      { name: "Ireland", lat: 53.1424, lng: -7.6921 },
+      { name: "Israel", lat: 31.0461, lng: 34.8516 },
+      { name: "Kosovo", lat: 42.6026, lng: 20.9030 },
+      { name: "Latvia", lat: 56.8796, lng: 24.6032 },
+      { name: "Malta", lat: 35.9375, lng: 14.3754 },
+      { name: "Northern Ireland", lat: 54.7877, lng: -6.4923 },
+      { name: "Netherlands", lat: 52.1326, lng: 5.2913 },
+      { name: "Norway", lat: 60.4720, lng: 8.4689 },
+      { name: "Poland", lat: 51.9194, lng: 19.1451 },
+      { name: "Portugal", lat: 39.3999, lng: -8.2245 },
+      { name: "Republic of North Macedonia", lat: 41.6086, lng: 21.7453 },
+      { name: "Romania", lat: 45.9432, lng: 24.9668 },
+      { name: "Serbia", lat: 44.0165, lng: 21.0059 },
+      { name: "Slovakia", lat: 48.6690, lng: 19.6990 },
+      { name: "Spain", lat: 40.4637, lng: -3.7492 },
+      { name: "Sweden", lat: 60.1282, lng: 18.6435 },
+      { name: "Switzerland", lat: 46.8182, lng: 8.2275 },
+      { name: "Turkey", lat: 38.9637, lng: 35.2433 },
+      { name: "Ukraine", lat: 48.3794, lng: 31.1656 },
+      { name: "Wales", lat: 52.1307, lng: -3.7837 }
+    ];
+
+    const pillsContainer = document.getElementById('countries-grid');
+    countriesData.forEach(c => {
+      let label = c.name;
+      if (c.name === "Northern Ireland") label = "N Ireland";
+      if (c.name === "Slovakia") label = "Slovakia / Slovak Republic";
+      
+      pillsContainer.insertAdjacentHTML('beforeend',
+        `<span class="country-pill" id="pill-${c.name.replace(/\s+/g, '')}" data-country="${c.name}">${label}</span>`
+      );
+    });
+
+    /* ── Interactive Map (Google GeoChart) ───────────────────────────── */
+    let mapChart, mapData;
+
+    google.charts.load('current', {
+      'packages':['geochart']
+    });
+    google.charts.setOnLoadCallback(drawRegionsMap);
+
+    function drawRegionsMap() {
+      // Setup the data array with Lat, Long, Country Info
+      mapData = new google.visualization.DataTable();
+      mapData.addColumn('number', 'Lat');
+      mapData.addColumn('number', 'Long');
+      mapData.addColumn('string', 'Country');
+      mapData.addColumn('number', 'Participant');
+      mapData.addColumn({type: 'string', role: 'tooltip', p: {html: true}});
+
+      countriesData.forEach((c) => {
+        const tooltipHtml = `<div style="padding:8px 12px; font-family:'Inter',sans-serif; font-size:14px; color:#2d5a3d; font-weight:600; white-space:nowrap;">${c.name}</div>`;
+        mapData.addRow([c.lat, c.lng, c.name, 1, tooltipHtml]);
+      });
+
+      const options = {
+        displayMode: 'markers',
+        colorAxis: {colors: ['#3e7a56', '#2d5a3d']},
+        backgroundColor: '#c8e8f4',
+        datalessRegionColor: '#e0e0e0',
+        defaultColor: '#f5f5f5',
+        legend: 'none',
+        tooltip: { isHtml: true, trigger: 'focus' },
+        markerOpacity: 0.9,
+        sizeAxis: { minSize: 8, maxSize: 8 }
+      };
+
+      mapChart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+      mapChart.draw(mapData, options);
+
+      // Search bar logic
+      const searchBox = document.getElementById('map-search');
+      searchBox.addEventListener('keyup', (e) => {
+        const term = e.target.value.toLowerCase();
+        if (term.length > 1) {
+          matchIndex = countriesData.findIndex(c => c.name.toLowerCase().includes(term));
+        }
+
+        if (matchIndex !== -1) {
+          mapChart.setSelection([{row: matchIndex, column: null}]);
+          highlightPill(countriesData[matchIndex].name);
+        } else {
+          mapChart.setSelection([]);
+          highlightPill(null);
+        }
+      });
+
+      // Pill click logic
+      const pills = document.querySelectorAll('.country-pill');
+      pills.forEach((pill) => {
+        pill.addEventListener('click', (e) => {
+          const cName = e.target.getAttribute('data-country');
+          const idx = countriesData.findIndex(c => c.name === cName);
+          if (idx !== -1) {
+            mapChart.setSelection([{row: idx, column: null}]);
+            highlightPill(cName);
+            searchBox.value = ''; // clear search box optionally
+          }
+        });
+      });
+    }
+
+    function highlightPill(countryName) {
+      document.querySelectorAll('.country-pill').forEach(p => {
+        if (p.getAttribute('data-country') === countryName) p.classList.add('highlighted-pill');
+        else p.classList.remove('highlighted-pill');
+      });
+    }
+
+    /* ── Active nav on scroll ────────────────────────────────────────── */
+    const sections = document.querySelectorAll('section[id], #home');
+    const navLinks = document.querySelectorAll('nav a');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const active = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+  </script>
+</body>
+</html>
