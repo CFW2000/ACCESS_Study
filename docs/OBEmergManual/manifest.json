@@ -1,0 +1,16 @@
+{
+  "name": "OB Emerg Manual",
+  "short_name": "OB Emerg",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff3b30",
+  "description": "Emergency Manual for Anesthesia Practice for Cesarean Delivery",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png"
+    }
+  ]
+}
