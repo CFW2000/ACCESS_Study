@@ -1,0 +1,17 @@
+{
+  "name": "Manual Emergencias OB",
+  "short_name": "Emerg OB ES",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff3b30",
+  "description": "Manual de Emergencias Obstétricas para Anestesia en Cesárea",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png"
+    }
+  ]
+}
